@@ -5,7 +5,7 @@ This project is a **MERN stack authentication system** with separate frontends f
 
 - 🏫 **Student Frontend** (React - Port `5173`)
 - 🛠 **Admin Frontend** (React - Port `5174`)
-- ⚡ **Backend** (Node.js/Express - Port `5000`)
+- ⚡ **Backend** (Node.js/Express - Port `5001`)
 - 🛢 **Database** (MongoDB - Hosted Locally or on Atlas)
 
 ---
