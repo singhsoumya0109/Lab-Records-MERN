@@ -1,2 +1,20 @@
-# Lab-Records-MERN
-A full-stack authentication system built using the MERN stack (MongoDB, Express.js, React, Node.js). It features separate frontends for students and admins, running on different ports. The system includes user registration, login with JWT authentication, and role-based access control.
+# MERN Authentication System
+
+## 🚀 Overview
+This project is a **MERN stack authentication system** with separate frontends for **students and admins**. It allows users to **register, log in, and access role-based functionalities**.
+
+- 🏫 **Student Frontend** (React - Port `5173`)
+- 🛠 **Admin Frontend** (React - Port `5174`)
+- ⚡ **Backend** (Node.js/Express - Port `5000`)
+- 🛢 **Database** (MongoDB - Hosted Locally or on Atlas)
+
+---
+
+## 🛠 Features
+✅ **Student & Admin Registration**  
+✅ **Login with JWT Authentication**  
+✅ **Role-based Access Control**  
+✅ **MongoDB for Data Storage**  
+✅ **Bcrypt for Password Hashing**  
+✅ **Express.js API with Secure Routes**  
+
