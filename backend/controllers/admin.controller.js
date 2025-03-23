@@ -71,6 +71,7 @@ export const loginAdmin = async (req, res) => {
 
     res.json({ token, role: "admin" });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    console.log("Error in admin login controller", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };

@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import { connectDB } from "./lib/db.js";
 import studentRoutes from "./routes/student.route.js";
 import adminRoutes from "./routes/admin.route.js";
+import adminProductRoutes from "./routes/admin.product.route.js"; 
+import studentProductRoutes from "./routes/student.product.route.js";
 
 dotenv.config();
 connectDB();
@@ -24,6 +26,8 @@ app.use(
 // Routes for authentication
 app.use("/api/student", studentRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/admin/products", adminProductRoutes); 
+app.use("/api/student/products", studentProductRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

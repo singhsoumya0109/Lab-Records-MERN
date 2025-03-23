@@ -43,6 +43,7 @@ export const registerStudent = async (req, res) => {
         role: "student",
       });
   } catch (error) {
+    console.log("Error in student register controller", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
@@ -78,6 +79,7 @@ export const loginStudent = async (req, res) => {
 
     res.json({ student, token, role: "student" });
   } catch (error) {
+    console.log("Error in student login controller", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };

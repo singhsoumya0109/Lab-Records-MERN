@@ -32,6 +32,12 @@ const studentSchema = new mongoose.Schema({
   rollNumber: { type: String, unique: true, sparse: true },
   department: String,
   yearOfStudy: { type: Number, min: 1, max: 4 },
+  assignedProducts: [
+    {
+      productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      quantity: { type: Number, default: 1 }, // Track how many of this product a student has
+    },
+  ],
 });
 
 const Student = User.discriminator("student", studentSchema);
@@ -40,6 +46,10 @@ const Student = User.discriminator("student", studentSchema);
 const adminSchema = new mongoose.Schema({
   employeeId: { type: String, unique: true, sparse: true },
   designation: String,
+  listedProducts: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+    default: [], // Initially empty
+  },
 });
 
 const Admin = User.discriminator("admin", adminSchema);
