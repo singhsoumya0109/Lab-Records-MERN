@@ -8,6 +8,8 @@ const Register = ({ role }) => {
     name: "",
     email: "",
     password: "",
+    employeeId: "",
+    designation: "",
   });
 
   const handleChange = (e) => {
@@ -46,6 +48,18 @@ const Register = ({ role }) => {
           name="password"
           type="password"
           placeholder="Password"
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="employeeId"
+          placeholder="Employee ID"
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="designation"
+          placeholder="Designation"
           onChange={handleChange}
           required
         />

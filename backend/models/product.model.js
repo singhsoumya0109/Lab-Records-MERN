@@ -13,7 +13,12 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     studentsTaken: {
-      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }], // List of students who took the product
+      type: [
+        {
+          student: { type: mongoose.Schema.Types.ObjectId, ref: "Student" }, // Student who took the product
+          quantity: { type: Number, default: 1, min: 1 }, // Number of products taken
+        },
+      ],
       default: [],
     },
     createdAt: { type: Date, default: Date.now },
