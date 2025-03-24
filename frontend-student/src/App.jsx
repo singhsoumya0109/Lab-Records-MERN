@@ -7,7 +7,8 @@ import {
 import Register from "./pages/RegisterPage";
 import Login from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
-import ProductDetailsPage from "./pages/ProductDetailsPage"; // Import product details page
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+import DashboardPage from "./pages/DashboardPage"; // Import Dashboard Page
 import Navbar from "./components/Navbar";
 import useAuthStore from "./stores/useUserStore";
 import { Toaster } from "react-hot-toast";
@@ -33,12 +34,20 @@ function App({ role }) {
             </ProtectedRoute>
           }
         />
-        {/* Protected route for viewing product details */}
         <Route
           path="/product/:productId"
           element={
             <ProtectedRoute>
-              <ProductDetailsPage role={role}/>
+              <ProductDetailsPage role={role} />
+            </ProtectedRoute>
+          }
+        />
+        {/* Protected route for Dashboard */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage role={role} />
             </ProtectedRoute>
           }
         />

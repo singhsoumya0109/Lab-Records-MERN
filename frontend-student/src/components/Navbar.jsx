@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import useAuthStore from "../stores/useUserStore"; // Import the Zustand store
+import useAuthStore from "../stores/useUserStore"; // Zustand store
+import { LogOut, LogIn, UserPlus, LayoutDashboard } from "lucide-react"; // Lucide icons
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, logout } = useAuthStore(); // Use Zustand store
+  const { isLoggedIn, logout } = useAuthStore(); // Zustand store
 
   const handleLogout = () => {
     logout();
@@ -15,26 +16,39 @@ const Navbar = () => {
       <Link to="/" className="text-xl font-bold hover:underline">
         JU LABS
       </Link>
-      <div>
+
+      <div className="flex items-center space-x-4">
         {isLoggedIn ? (
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 px-4 py-2 rounded hover:bg-red-600"
-          >
-            Logout
-          </button>
+          <>
+            <Link
+              to="/dashboard"
+              className="flex items-center bg-green-800 px-4 py-2 rounded hover:bg-gray-700"
+            >
+              <LayoutDashboard className="w-5 h-5 mr-2" />
+              Dashboard
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="flex items-center bg-red-500 px-4 py-2 rounded hover:bg-red-600"
+            >
+              <LogOut className="w-5 h-5 mr-2" />
+              Logout
+            </button>
+          </>
         ) : (
-          <div className="space-x-4">
+          <div className="space-x-4 flex">
             <Link
               to="/login"
-              className="bg-gray-800 px-4 py-2 rounded hover:bg-gray-700"
+              className="flex items-center bg-gray-800 px-4 py-2 rounded hover:bg-gray-700"
             >
+              <LogIn className="w-5 h-5 mr-2" />
               Login
             </Link>
             <Link
               to="/register"
-              className="bg-green-500 px-4 py-2 rounded hover:bg-green-600"
+              className="flex items-center bg-green-500 px-4 py-2 rounded hover:bg-green-600"
             >
+              <UserPlus className="w-5 h-5 mr-2" />
               Signup
             </Link>
           </div>

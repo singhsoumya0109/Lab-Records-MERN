@@ -9,8 +9,7 @@ const ProductDetailsPage = ({ role }) => {
   const { isLoggedIn } = useAuthStore();
   const { selectedProduct, productLoading, productError, fetchProductDetails } =
     useProductStore();
-  const { studentProducts, orderLoading, takeProduct, returnProduct } =
-    useOrderStore();
+  const { orderLoading, takeProduct, returnProduct } = useOrderStore();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -26,8 +25,6 @@ const ProductDetailsPage = ({ role }) => {
     return (
       <p className="text-gray-300 text-center text-lg">Product not found.</p>
     );
-
-  const isTaken = studentProducts.includes(productId);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6">
@@ -57,21 +54,14 @@ const ProductDetailsPage = ({ role }) => {
             <div className="flex gap-4 mt-4">
               <button
                 onClick={() => takeProduct(role, productId)}
-                disabled={orderLoading || isTaken}
-                className={`px-4 py-2 rounded-lg text-white font-bold transition ${
-                  isTaken
-                    ? "bg-gray-600 cursor-not-allowed"
-                    : "bg-green-500 hover:bg-green-600"
-                } ${orderLoading && "opacity-50 cursor-not-allowed"}`}
+                className="px-4 py-2 rounded-lg text-white font-bold transition bg-green-500 hover:bg-green-600"
               >
-                {isTaken ? "Taken" : "Take"}
+                Take
               </button>
 
               <button
                 onClick={() => returnProduct(role, productId)}
-                className={`px-4 py-2 rounded-lg text-white font-bold transition bg-red-500 hover:bg-red-600 ${
-                  orderLoading && "opacity-50 cursor-not-allowed"
-                }`}
+                className="px-4 py-2 rounded-lg text-white font-bold transition bg-red-500 hover:bg-red-600"
               >
                 Return
               </button>

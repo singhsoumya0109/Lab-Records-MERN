@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { takeProduct, returnProduct, getStudentProducts } from "../lib/axios";
+import useProductStore from "./useProductStore"; // Import product store
 
 const useOrderStore = create((set) => ({
   studentProducts: [],
@@ -23,9 +24,19 @@ const useOrderStore = create((set) => ({
     try {
       set({ orderLoading: true, orderError: null });
       await takeProduct(role, productId);
+
+      // Update studentProducts list
       set((state) => ({
         studentProducts: [...state.studentProducts, productId],
         orderLoading: false,
+      }));
+
+      // Update stock in product store
+      useProductStore.setState((state) => ({
+        selectedProduct: {
+          ...state.selectedProduct,
+          stock: Math.max(0, state.selectedProduct.stock - 1),
+        },
       }));
     } catch (error) {
       set({
@@ -39,9 +50,19 @@ const useOrderStore = create((set) => ({
     try {
       set({ orderLoading: true, orderError: null });
       await returnProduct(role, productId);
+
+      // Update studentProducts list
       set((state) => ({
         studentProducts: state.studentProducts.filter((id) => id !== productId),
         orderLoading: false,
+      }));
+
+      // Update stock in product store
+      useProductStore.setState((state) => ({
+        selectedProduct: {
+          ...state.selectedProduct,
+          stock: state.selectedProduct.stock + 1,
+        },
       }));
     } catch (error) {
       set({

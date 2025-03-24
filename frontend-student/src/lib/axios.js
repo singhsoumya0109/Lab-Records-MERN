@@ -31,3 +31,7 @@ export const getStudentProducts = (endpoint) =>
 
 export const getProductDetails = (endpoint, productId) =>
   API.get(`/${endpoint}/products/${productId}`);
+
+// Student Details API
+export const getStudentDetails = (endpoint) =>
+  API.get(`/${endpoint}/details`);
