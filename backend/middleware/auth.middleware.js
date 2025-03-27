@@ -42,7 +42,7 @@ export const isStudent = (req, res, next) => {
 
 export const isProductOwner = async (req, res, next) => {
   try {
-    const productId = req.params.id; // Adjust based on how you're passing the product ID
+    const productId = req.params.productId; // Adjust based on how you're passing the product ID
     if (!productId) {
       return res.status(400).json({ message: "Product ID is required." });
     }

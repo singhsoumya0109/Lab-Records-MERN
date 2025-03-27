@@ -111,12 +111,18 @@ export const getProductUsers = async (req, res) => {
 export const getLowStockProducts = async (req, res) => {
   try {
     const threshold = req.query.threshold || 5; // Default threshold: 5
+    const ownerId = req.user._id; // Assuming your auth middleware adds req.user
 
-    // Fetch products with stock less than threshold
-    const lowStockProducts = await Product.find({ stock: { $lt: threshold } });
+    // Fetch products with stock less than threshold and owner same as logged-in user
+    const lowStockProducts = await Product.find({
+      stock: { $lt: threshold },
+      owner: ownerId,
+    });
 
     if (lowStockProducts.length === 0) {
-      return res.json({ message: "No low-stock products found" });
+      return res.json({
+        message: "No low-stock products found for this owner",
+      });
     }
 
     res.json({

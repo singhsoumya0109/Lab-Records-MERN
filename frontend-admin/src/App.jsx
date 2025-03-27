@@ -8,6 +8,11 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AuthRoute from "./components/AuthRoute";
 import { useEffect } from "react";
 import useAdminStore from "./stores/useAdminStore";
+import AllProducts from "./pages/AllProducts";
+import MyProducts from "./pages/MyProducts";
+import LowStock from "./pages/LowStock";
+import UsersPage from "./pages/UsersPage";
+import AddProduct from "./pages/AddProduct";
 
 function App({ role }) {
   const setLoading = useAdminStore((state) => state.setLoading);
@@ -15,7 +20,7 @@ function App({ role }) {
   useEffect(() => {
     // Simulate checking token (replace with your real logic if needed)
     setTimeout(() => {
-      setLoading(false);
+      //setLoading(false);
     }, 1000);
   }, []);
 
@@ -29,6 +34,46 @@ function App({ role }) {
           element={
             <ProtectedRoute>
               <HomePage role={role} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <ProtectedRoute>
+              <AllProducts />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-products"
+          element={
+            <ProtectedRoute>
+              <MyProducts />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/low-stock"
+          element={
+            <ProtectedRoute>
+              <LowStock />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <UsersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-product"
+          element={
+            <ProtectedRoute>
+              <AddProduct />
             </ProtectedRoute>
           }
         />

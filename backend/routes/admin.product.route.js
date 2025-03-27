@@ -22,6 +22,7 @@ router.get(
   "/product-users/:productId",
   isAuthenticated,
   isAdmin,
+  isProductOwner,
   getProductUsers
 );
 
