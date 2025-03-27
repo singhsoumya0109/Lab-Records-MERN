@@ -1,9 +1,16 @@
 import Product from "../models/product.model.js";
 import { Admin } from "../models/user.model.js";
 
-/**
- * Add a new product (Admin Only)
- */
+export const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ stock: { $gt: 0 } }); // Fetch only products with stock > 0
+    res.json({ products });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+
 export const addProduct = async (req, res) => {
   try {
     const { name, description, category, stock, image } = req.body;

@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.model.js";
+import Product from "../models/product.model.js";
 
 export const isAuthenticated = async (req, res, next) => {
   try {
@@ -36,4 +37,31 @@ export const isStudent = (req, res, next) => {
     return res.status(403).json({ message: "Access denied. Students only." });
   }
   next();
+};
+
+
+export const isProductOwner = async (req, res, next) => {
+  try {
+    const productId = req.params.id; // Adjust based on how you're passing the product ID
+    if (!productId) {
+      return res.status(400).json({ message: "Product ID is required." });
+    }
+
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found." });
+    }
+
+    // Check if logged-in user is the owner
+    if (product.owner.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Access denied. Not the owner." });
+    }
+
+    req.product = product; // Attach product to request if needed later
+    next();
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Error verifying product ownership." });
+  }
 };

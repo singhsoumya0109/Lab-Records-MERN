@@ -29,7 +29,7 @@ export const registerAdmin = async (req, res) => {
 
     res
       .status(201)
-      .json({ message: "Admin registered successfully", token, role: "admin" });
+      .json({ message: "Admin registered successfully", token, role: "admin",admin });
   } catch (error) {
     console.log("Error in admin register controller", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
@@ -69,7 +69,7 @@ export const loginAdmin = async (req, res) => {
       }
     );
 
-    res.json({ token, role: "admin" });
+    res.json({ token, role: "admin" ,admin});
   } catch (error) {
     console.log("Error in admin login controller", error.message);
     res.status(500).json({ message: "Server error", error: error.message });

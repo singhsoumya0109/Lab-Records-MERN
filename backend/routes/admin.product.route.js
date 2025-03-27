@@ -6,8 +6,13 @@ import {
   getMyListedProducts,
   updateProduct,
   deleteProduct,
+  getAllProducts,
 } from "../controllers/admin.product.controller.js";
-import { isAuthenticated, isAdmin } from "../middleware/auth.middleware.js";
+import {
+  isAuthenticated,
+  isAdmin,
+  isProductOwner,
+} from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
@@ -19,24 +24,31 @@ router.get(
   isAdmin,
   getProductUsers
 );
+
+// Get all products (visible to authenticated users)
+router.get("/", isAuthenticated, getAllProducts);
+
+// Get all products with low stock (Admin only)
 router.get("/low-stock", isAuthenticated, isAdmin, getLowStockProducts);
 
 // Get all products listed by the admin
 router.get("/my-products", isAuthenticated, isAdmin, getMyListedProducts);
 
-// Update product details
+// Update product details (only owner admin can update)
 router.put(
   "/update-product/:productId",
   isAuthenticated,
   isAdmin,
+  isProductOwner,
   updateProduct
 );
 
-// Delete a product
+// Delete a product (only owner admin can delete)
 router.delete(
   "/delete-product/:productId",
   isAuthenticated,
   isAdmin,
+  isProductOwner,
   deleteProduct
 );
 
