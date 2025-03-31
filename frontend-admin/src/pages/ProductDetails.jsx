@@ -1,42 +1,47 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useProductStore from "../stores/useProductStore";
+import ProductInfo from "../components/ProductInfo";
+import ProductUsersList from "../components/ProductUsersList";
+import StockUpdateForm from "../components/StockUpdateForm";
 
 const ProductDetails = () => {
   const { productId } = useParams();
-  const { productDetails, fetchProductDetails, loading, error } =
-    useProductStore();
+  const {
+    productDetails,
+    fetchProductDetails,
+    updateStock,
+    productUsers,
+    fetchProductUsers,
+  } = useProductStore();
+
+  const admin = JSON.parse(localStorage.getItem("admin"));
 
   useEffect(() => {
     fetchProductDetails(productId);
-  }, [productId, fetchProductDetails]);
-
-  if (loading) {
-    return <div className="text-center text-lg text-gray-400">Loading...</div>;
-  }
-
-  if (error) {
-    return <div className="text-center text-red-500">{error}</div>;
-  }
-
-  if (!productDetails) {
-    return <div className="text-center text-gray-400">Product not found</div>;
-  }
+    fetchProductUsers(productId);
+  }, [productId]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
-      <div className="max-w-3xl p-6 bg-gray-800 rounded-lg shadow-lg w-100">
-        <h1 className="text-2xl font-bold mb-4">{productDetails.name}</h1>
-        <img
-          src={productDetails.image}
-          alt={productDetails.name}
-          className="w-full h-64 object-cover rounded-lg shadow-md"
-        />
-        <p className="mt-4 text-gray-300">{productDetails.description}</p>
-        <p className="mt-2 text-gray-400">
-          Category: {productDetails.category}
-        </p>
-        <p className="mt-2 text-gray-400">Stock: {productDetails.stock}</p>
+    <div className="min-h-screen flex items-start justify-center bg-gray-900 text-white p-6">
+      <div className="flex flex-col md:flex-row w-full max-w-6xl gap-6">
+        {/* Product Details */}
+        <ProductInfo product={productDetails} />
+
+        {/* Users List & Stock Update */}
+        {admin?._id === productDetails?.owner && (
+          <div className="md:w-1/2 bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col">
+            <h2 className="text-xl font-semibold mb-4">
+              Users using this product:
+            </h2>
+            <ProductUsersList users={productUsers} />
+            <StockUpdateForm
+              productId={productId}
+              updateStock={updateStock}
+              fetchProductDetails={fetchProductDetails}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

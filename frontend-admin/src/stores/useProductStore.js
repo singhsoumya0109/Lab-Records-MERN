@@ -5,8 +5,9 @@ import {
   getMyProducts,
   getLowStockProducts,
   getProductUsers,
-  getProductDetails, // Import the new API function
+  getProductDetails,
   updateProduct,
+  updateProductStock, // Import the update stock function
   deleteProduct,
 } from "../lib/axios";
 
@@ -15,7 +16,7 @@ const useProductStore = create((set) => ({
   myProducts: [],
   lowStockProducts: [],
   productUsers: [],
-  productDetails: null, // Add state for product details
+  productDetails: null,
   loading: false,
   error: null,
 
@@ -33,7 +34,7 @@ const useProductStore = create((set) => ({
     }
   },
 
-  // Fetch product details (NEW FUNCTION)
+  // Fetch product details
   fetchProductDetails: async (productId) => {
     try {
       set({ loading: true, error: null });
@@ -81,7 +82,8 @@ const useProductStore = create((set) => ({
     try {
       set({ loading: true, error: null });
       const { data } = await getProductUsers(productId);
-      set({ productUsers: data.users, loading: false });
+      console.log(data.studentsUsing);
+      set({ productUsers: data.studentsUsing, loading: false });
     } catch (err) {
       set({
         error: err.response?.data?.message || "Failed to fetch product users",
@@ -113,6 +115,20 @@ const useProductStore = create((set) => ({
     } catch (err) {
       set({
         error: err.response?.data?.message || "Failed to update product",
+        loading: false,
+      });
+    }
+  },
+
+  // Update product stock
+  updateStock: async (productId, stock) => {
+    try {
+      set({ loading: true, error: null });
+      await updateProductStock(productId, stock);
+      set({ loading: false });
+    } catch (err) {
+      set({
+        error: err.response?.data?.message || "Failed to update stock",
         loading: false,
       });
     }

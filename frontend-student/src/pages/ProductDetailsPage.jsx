@@ -28,42 +28,64 @@ const ProductDetailsPage = ({ role }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6">
-      <div className="bg-gray-800 shadow-2xl rounded-lg p-8 max-w-3xl w-full text-white">
-        <h2 className="text-4xl font-extrabold text-center">
+      <div className="bg-gray-800 shadow-2xl rounded-lg p-8 max-w-4xl w-full text-white">
+        {/* Title */}
+        <h2 className="text-3xl md:text-4xl font-extrabold text-center border-b border-gray-700 pb-3">
           {selectedProduct.name}
         </h2>
 
-        <div className="flex flex-col md:flex-row items-center gap-6 mt-6">
-          <img
-            src={selectedProduct.image}
-            alt={selectedProduct.name}
-            className="w-80 h-80 object-cover rounded-lg shadow-lg"
-          />
-          <div className="text-lg space-y-4">
+        <div className="flex flex-col md:flex-row gap-8 mt-6">
+          {/* Left: Product Image */}
+          <div className="md:w-1/2 flex justify-center">
+            <img
+              src={selectedProduct.image}
+              alt={selectedProduct.name}
+              className="w-full max-w-xs md:max-w-sm h-80 object-cover rounded-lg shadow-lg border border-gray-700"
+            />
+          </div>
+
+          {/* Right: Product Details */}
+          <div className="md:w-1/2 flex flex-col justify-between">
             <p className="bg-gray-700 inline-block px-3 py-1 rounded-full text-sm uppercase tracking-wider">
               {selectedProduct.category}
             </p>
-            <p className="text-gray-300">{selectedProduct.description}</p>
-
-            <p className="text-gray-400">
-              <span className="font-semibold text-gray-200">Stock: </span>
-              {selectedProduct.stock}
+            <p className="text-gray-300 text-lg mt-4">
+              {selectedProduct.description}
             </p>
 
-            {/* Take & Return Buttons */}
-            <div className="flex gap-4 mt-4">
+            {/* Stock Status */}
+            <div className="mt-4">
+              <p className="text-gray-400 font-semibold">Stock Availability:</p>
+              <div className="w-full bg-gray-700 rounded-full h-4 overflow-hidden mt-2">
+                <div
+                  className="bg-green-500 h-4 transition-all duration-300"
+                  style={{
+                    width: `${Math.max(
+                      5,
+                      (selectedProduct.stock / 100) * 100
+                    )}%`,
+                  }}
+                ></div>
+              </div>
+              <p className="mt-2 text-gray-300">
+                {selectedProduct.stock} available
+              </p>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex gap-4 mt-6">
               <button
                 onClick={() => takeProduct(role, productId)}
-                className="px-4 py-2 rounded-lg text-white font-bold transition bg-green-500 hover:bg-green-600"
+                className="flex-1 px-6 py-3 rounded-lg text-white font-bold transition bg-green-500 hover:bg-green-600 shadow-md"
               >
-                Take
+                {orderLoading ? "Processing..." : "Take"}
               </button>
 
               <button
                 onClick={() => returnProduct(role, productId)}
-                className="px-4 py-2 rounded-lg text-white font-bold transition bg-red-500 hover:bg-red-600"
+                className="flex-1 px-6 py-3 rounded-lg text-white font-bold transition bg-red-500 hover:bg-red-600 shadow-md"
               >
-                Return
+                {orderLoading ? "Processing..." : "Return"}
               </button>
             </div>
           </div>

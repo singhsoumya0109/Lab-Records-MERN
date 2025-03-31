@@ -7,7 +7,8 @@ import {
   updateProduct,
   deleteProduct,
   getAllProducts,
-  getProductDetails, // Added function to get product details
+  getProductDetails,
+  updateProductStock, // Added function to update stock
 } from "../controllers/admin.product.controller.js";
 import {
   isAuthenticated,
@@ -46,6 +47,15 @@ router.put(
   isAdmin,
   isProductOwner,
   updateProduct
+);
+
+// Update stock of a product (only owner admin can update)
+router.put(
+  "/update-stock/:productId",
+  isAuthenticated,
+  isAdmin,
+  isProductOwner,
+  updateProductStock
 );
 
 // Delete a product (only owner admin can delete)

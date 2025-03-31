@@ -4,6 +4,7 @@ import ProductList from "../components/ProductList";
 
 const HomePage = ({ role }) => {
   const { products, loading, error, fetchProducts } = useProductStore();
+  const storedStudent = JSON.parse(localStorage.getItem("student"));
 
   useEffect(() => {
     const userRole = role || localStorage.getItem("role");
@@ -14,7 +15,7 @@ const HomePage = ({ role }) => {
 
   return (
     <div className="p-6 bg-gray-900 min-h-screen text-white">
-      <h2 className="text-3xl font-semibold">Welcome to JU LABS</h2>
+      <h2 className="text-3xl font-semibold">Welcome {storedStudent.name}</h2>
 
       <div className="mt-6">
         <h3 className="text-2xl font-semibold">Available Products</h3>

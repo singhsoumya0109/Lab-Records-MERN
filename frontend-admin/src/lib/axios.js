@@ -52,6 +52,10 @@ export const getProductUsers = (productId) =>
 export const updateProduct = (productId, data) =>
   API.put(`/admin/products/update-product/${productId}`, data);
 
+// Update stock of a specific product
+export const updateProductStock = (productId, stock) =>
+  API.put(`/admin/products/update-stock/${productId}`, { stock });
+
 // Delete a product
 export const deleteProduct = (productId) =>
   API.delete(`/admin/products/delete-product/${productId}`);
