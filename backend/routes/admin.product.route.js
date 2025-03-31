@@ -7,6 +7,7 @@ import {
   updateProduct,
   deleteProduct,
   getAllProducts,
+  getProductDetails, // Added function to get product details
 } from "../controllers/admin.product.controller.js";
 import {
   isAuthenticated,
@@ -28,6 +29,9 @@ router.get(
 
 // Get all products (visible to authenticated users)
 router.get("/", isAuthenticated, getAllProducts);
+
+// Get details of a specific product (Authenticated users)
+router.get("/product/:productId", isAuthenticated, getProductDetails);
 
 // Get all products with low stock (Admin only)
 router.get("/low-stock", isAuthenticated, isAdmin, getLowStockProducts);

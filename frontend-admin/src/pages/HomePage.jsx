@@ -55,7 +55,7 @@ export default function HomePage() {
           <p className="text-gray-400 mb-4">
             See who is currently using your products.
           </p>
-          <Link to="/users">
+          <Link to="/my-products">
             <button className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700">
               View Users
             </button>

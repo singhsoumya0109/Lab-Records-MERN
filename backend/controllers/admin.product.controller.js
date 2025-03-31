@@ -57,24 +57,27 @@ export const addProduct = async (req, res) => {
   }
 };
 
-/**
- * Get all products listed by the logged-in admin
- */
+
+
 export const getMyListedProducts = async (req, res) => {
   try {
     const adminId = req.user._id;
+    // console.log(adminId);
 
-    // Fetch admin and populate listed products
-    const admin = await Admin.findById(adminId).populate("listedProducts");
+    // Fetch products where the owner is the admin
+    const listedProducts = await Product.find({ owner: adminId });
 
-    if (!admin) return res.status(404).json({ message: "Admin not found" });
-
-    res.json({ listedProducts: admin.listedProducts });
+    if (!listedProducts.length) {
+      return res.status(404).json({ message: "No products found" });
+    }
+    //console.log(listedProducts);
+    res.json({ listedProducts });
   } catch (error) {
     console.error("Error fetching listed products:", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 /**
  * Get students who have taken a specific product
@@ -175,6 +178,23 @@ export const deleteProduct = async (req, res) => {
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+
+export const getProductDetails = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.json({ product });
+  } catch (error) {
+    console.error("Error fetching product details:", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };

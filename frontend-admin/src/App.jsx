@@ -12,6 +12,7 @@ import AllProducts from "./pages/AllProducts";
 import MyProducts from "./pages/MyProducts";
 import LowStock from "./pages/LowStock";
 import UsersPage from "./pages/UsersPage";
+import ProductDetails from "./pages/ProductDetails";
 import AddProduct from "./pages/AddProduct";
 
 function App({ role }) {
@@ -62,14 +63,6 @@ function App({ role }) {
           }
         />
         <Route
-          path="/users"
-          element={
-            <ProtectedRoute>
-              <UsersPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/add-product"
           element={
             <ProtectedRoute>
@@ -83,6 +76,14 @@ function App({ role }) {
             <AuthRoute>
               <Register role={role} />
             </AuthRoute>
+          }
+        />
+        <Route
+          path="/product/:productId"
+          element={
+            <ProtectedRoute>
+              <ProductDetails />
+            </ProtectedRoute>
           }
         />
         <Route

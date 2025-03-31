@@ -40,6 +40,10 @@ export const getMyProducts = () => API.get("/admin/products/my-products");
 // Get low stock products (admin only)
 export const getLowStockProducts = () => API.get("/admin/products/low-stock");
 
+// Get details of a specific product
+export const getProductDetails = (productId) =>
+  API.get(`/admin/products/product/${productId}`);
+
 // Get users who are using a specific product
 export const getProductUsers = (productId) =>
   API.get(`/admin/products/product-users/${productId}`);
